@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'colors.dart';
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -25,25 +27,31 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
             SizedBox(height: 120.0),
-            TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(
-                filled: true,
-                labelText: 'Username',
+            AccentColorOverride(
+              color: kShrineBrown900,
+              child: TextField(
+                controller: _usernameController,
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                ),
               ),
             ),
             SizedBox(height: 12.0),
-            TextField(
-              controller: _passwordContorller,
-              decoration: InputDecoration(
-                filled: true,
-                labelText: 'Password',
+            AccentColorOverride(
+              color: kShrineBrown900,
+              child: TextField(
+                controller: _passwordContorller,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                ),
+                obscureText: true,
               ),
-              obscureText: true,
             ),
             ButtonBar(
               children: <Widget>[
                 FlatButton(
+                  shape: BeveledRectangleBorder(
+                      borderRadius: BorderRadius.circular(7.0)),
                   child: Text('Cancel'),
                   onPressed: () {
                     _usernameController.clear();
@@ -51,7 +59,10 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
                 RaisedButton(
+                  shape: BeveledRectangleBorder(
+                      borderRadius: BorderRadius.circular(7.0)),
                   child: Text('NEXT'),
+                  elevation: 8.0,
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -60,6 +71,25 @@ class _LoginPageState extends State<LoginPage> {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class AccentColorOverride extends StatelessWidget {
+  const AccentColorOverride({Key key, this.color, this.child})
+      : super(key: key);
+
+  final Color color;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      child: child,
+      data: Theme.of(context).copyWith(
+        accentColor: color,
+        brightness: Brightness.dark,
       ),
     );
   }
